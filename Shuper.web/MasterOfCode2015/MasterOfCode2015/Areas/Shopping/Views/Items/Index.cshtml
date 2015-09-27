@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Shopping.Models.Item>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .uppercase 
+        {
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <h3>StuffMart</h3>
+    <p>
+        @*@Html.ActionLink("Create New", "Create")*@
+    </p>
+    <table class="table">
+        <tr>
+            <th style="text-transform: uppercase;">
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th style="text-transform: uppercase;">
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+        </tr>
+    }
+    
+    </table>
+    <table>
+        <tr>
+            <td>
+                <a href="#" class="btn btn-info" role="button">Pay Now</a>
+            </td>
+            <td>
+                <a href="#" class="btn btn-info" role="button">Add Item</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

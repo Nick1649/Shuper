@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Shopping.Models.Item>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .uppercase {
+            text-transform: uppercase;
+        }
+    </style>
+    <script type="text/javascript" src="https://www.simplify.com/commerce/simplify.pay.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.simplify.com/commerce/v1/simplify.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#simplify-payment-form").on("submit", function () {
+                // Disable the submit button
+                $("#process-payment-btn").attr("disabled", "disabled");
+                // Generate a card token & handle the response
+                SimplifyCommerce.generateToken({
+                    key: "sbpb_OWM3MzQ1ZjYtMmVjNC00NTZlLWEwYzgtYmRjOWIwZTFiZjEw",
+                    card: {
+                        number: $("#cc-number").val(),
+                        cvc: $("#cc-cvc").val(),
+                        expMonth: $("#cc-exp-month").val(),
+                        expYear: $("#cc-exp-year").val()
+                    }
+                }, simplifyResponseHandler);
+                // Prevent the form from submitting
+                return false;
+            });
+            SimplifyCommerce.addMasterPassCheckoutButton("buy-with-masterpass-div", "sbpb_OWM3MzQ1ZjYtMmVjNC00NTZlLWEwYzgtYmRjOWIwZTFiZjEw", masterPassResponseHandler,
+                masterPassCanceledHandler);
+        });
+    </script>
+</head>
+<body>
+    @*<h3>StuffMart</h3>*@
+
+    <iframe name="my-hosted-form"
+            data-sc-key="sbpb_NTlhNTBiOTktNTRlYy00ZDVlLWE5NWEtYjc2ZmFiZGVmZjVj"
+            data-name="StuffMart"
+            data-description="The store full of stuff"
+            data-reference="99999"
+            data-amount="3000"
+            data-color="#12B830"
+            style="width:100%;height:480px; overflow:hidden"
+            data-masterpass="true"
+            frameBorder="0"></iframe>
+    <div id="buy-with-masterpass-div"></div>
+</body>
+</html>
